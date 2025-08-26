@@ -52,18 +52,14 @@ def diff_size_comp(v_A,v_B) :
 		tmp = [x for x in v_A if x not in v_B]
 		# reminder that we have access to the position of an element in the initial ranking: if its value is higher, it means its performance is worse
 		if tmp[0] > max(v_B) :
-			# print("B preferred to larger A by better lowest elem")
 			return 0
 		if tmp[0] < min(v_B) :
-			# print("larger A preferred to B by better highest elem")
 			return 1
 		return -1
 	tmp = [x for x in v_B if x not in v_A]
 	if tmp[0] > max(v_A) :
-		# print("A preferred to larger B by better lowest elem")
 		return 1
 	if tmp[0] < min(v_A) :
-		# print("larger B preferred to A by better highest elem")
 		return 0
 	return -1
 
@@ -77,7 +73,6 @@ def leximin(order, pop) :
 		v_A = [order.index((x,)) for x in to_extend[i]]
 		v_A.sort(reverse=True)
 		for j in range(i+1,len(to_extend)) :
-			# print("comparing "+str(to_extend[i])+" and "+str(to_extend[j]))
 			v_B = [order.index((x,)) for x in to_extend[j]]
 			v_B.sort(reverse=True)
 			# by definition of leximin, the emptyset is the worst possible set
@@ -99,16 +94,12 @@ def leximin(order, pop) :
 			rel = tools.lex_comp_min(v_A,v_B)
 			# if A > B
 			if rel == 1 :
-				# print(str(to_extend[i])+" of vector "+str(v_A)+" preferred to "+str(to_extend[j])+" of vector "+str(v_B)+"\n")
 				res += [[to_extend[i],to_extend[j]]]
 			# if B > A
 			elif rel == 0 :
-				# print(str(to_extend[j])+" of vector "+str(v_B)+" preferred to "+str(to_extend[i])+" of vector "+str(v_A)+"\n")
 				res += [[to_extend[j],to_extend[i]]]
 			# we do not deal with equivalences, as only identical coalitions are equivalent
-	# print("out of loop at "+str(time.time()))
 	res = tools.join_prefs_coal(res, to_extend)
-	# print("res finalized at "+str(time.time()))
 	return res
 
 
@@ -178,11 +169,9 @@ def leximax(order, pop) :
 			rel = tools.lex_comp_max(v_A,v_B)
 			# if A > B
 			if rel == 1 :
-				# print(str(to_extend[i])+" of vector "+str(v_A)+" preferred to "+str(to_extend[j])+" of vector "+str(v_B)+"\n")
 				res += [[to_extend[i],to_extend[j]]]
 			# if B > A
 			elif rel == 0 :
-				# print(str(to_extend[j])+" of vector "+str(v_B)+" preferred to "+str(to_extend[i])+" of vector "+str(v_A)+"\n")
 				res += [[to_extend[j],to_extend[i]]]
 	res = tools.join_prefs_coal(res, to_extend)
 	return res
@@ -285,12 +274,10 @@ def borda_like(order, pop) :
 	for i in range(len(to_extend)) :
 		for el in to_extend[i] :
 			score[i] += len(order)-order.index((el,))
-	# print(score)
 	res = []
 	while to_extend :
 		tmp = [x for x in to_extend if score[to_extend.index(x)]==max(score)]
 		res.append(tmp)
 		to_extend=[x for x in to_extend if x not in tmp]
 		score = [s for s in score if s != max(score)]
-	# print(res)
 	return res

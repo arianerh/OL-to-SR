@@ -50,7 +50,6 @@ def is_present(el,prefs) :
 # returns order over individuals based on expressed pairwise preferences
 def join_prefs_ind(prefs,N) :
 	res = []
-	# print(prefs)
 
 	cands = [i+1 for i in range(N)]
 	while len(cands) > 1 :
@@ -58,7 +57,6 @@ def join_prefs_ind(prefs,N) :
 		tmp = [[y for y in cands if [x,y] in prefs] for x in cands]
 		# get nb of dominated elements by each element
 		lens = [len(l) for l in tmp]
-		# print(lens)
 		if max(lens) == min(lens) :
 			res.append(cands)
 			return res
@@ -125,9 +123,7 @@ def count_inverse(prefs,og) :
 def join_prefs_coal(prefs,ps) :
 	res = []
 	for i in range(len(ps)) :
-		# print("i is "+str(i)+" at "+str(datetime.datetime.now()))
 		tmp = [x for x in ps if len([c for c in prefs if c[1]==x])== i]
-		# print(tmp)
 		res.append(tmp)
 	return res
 
@@ -171,7 +167,6 @@ def lex_comp_max(v_A,v_B) :
 def corrected_CP(cp, sr) :
 	res = copy.deepcopy(cp)
 	ind = [x for x in cp if x[::-1] in cp]
-	# print("ind is "+str(ind))
 	while ind :
 		# find positions of ind[0][0] and ind[0][1] in sr
 		for eq in sr :
@@ -193,7 +188,6 @@ def corrected_CP(cp, sr) :
 # given two rankings (list of equivalence classes) v1 and v2 over a population pop
 # returns the Kendall-Tau distance between v1 and v2 (i.e. number of pairs for which there is a disagreement in preferences)
 def Kendall_Tau(v1,v2,pop) :
-	# print("KT: v1 is "+display_rank(v1)+" and v2 "+display_rank(v2))
 	res = 0
 	for i in range(len(pop)) :
 		for j in range(i+1, len(pop)) :

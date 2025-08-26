@@ -204,7 +204,6 @@ def testinfo_win(rule, N, nb_runs) :
 			# returns list of pairwise preferences (not necessarily transitive)
 			pref_CP = SR.CPmaj(res, X)
 			o_CP = tools.join_prefs_ind(pref_CP,N)
-			# print(pref_CP, o_CP)
 			if len(o_CP[0]) == 1 and o_CP[0][0] == order[0][0] :
 				CP += 1
 
@@ -698,7 +697,6 @@ def k_info_win(rule, N, nb_runs) :
 	X = [i+1 for i in range(N)]
 	storage = [[],[],[],[]]
 	for k in range(2,N) :
-		print("\tk is "+str(k))
 		tab_l = []
 		tab_cp = []
 		tab_comb = []
@@ -711,7 +709,6 @@ def k_info_win(rule, N, nb_runs) :
 				continue
 			pc.append(size_g/nbc)
 			size = math.ceil(size_g)
-			print("\t\tsize is "+str(size_g/(nbc))+", i.e. "+str(size)+" coalitions among the "+str(math.comb(N,k))+" possible")
 			lex = 0
 			CP = 0
 			comb = 0
